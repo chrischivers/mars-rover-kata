@@ -22,6 +22,7 @@ lazy val root = (project in file("."))
       "dev.optics" %% "monocle-core" % "3.1.0",
       "dev.optics" %% "monocle-macro" % "3.1.0",
       "org.typelevel" %% "cats-core" % "2.9.0",
-      "org.scalameta" %% "munit" % "0.7.29" % Test
+      "org.scalameta" %% "munit" % "0.7.29" % Test,
+      compilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")
     )
   )

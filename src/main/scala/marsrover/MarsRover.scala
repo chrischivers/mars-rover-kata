@@ -4,7 +4,11 @@ import marsrover.model.Position.Direction._
 import marsrover.model.{Command, Position, Rover}
 import monocle.syntax.all._
 
-final case class MarsRover(position: Position) extends Rover {
+object MarsRover {
+  def init(startingPosition: Position): Rover = MarsRover(startingPosition)
+}
+
+private[marsrover] case class MarsRover(position: Position) extends Rover {
 
   private def moveNorth: MarsRover = this.focus(_.position.y).modify(_.increment)
   private def moveSouth: MarsRover = this.focus(_.position.y).modify(_.decrement)
@@ -30,12 +34,12 @@ final case class MarsRover(position: Position) extends Rover {
   private def rotateRight: MarsRover = this.focus(_.position.facing).modify(_.right)
 
   override def move(commands: List[Command]): MarsRover =
-    commands.foldLeft(this) { (rover, command) =>
+    commands.foldLeft(this) { (state, command) =>
       command match {
-        case Command.Forward     => rover.forward
-        case Command.Backwards   => rover.backward
-        case Command.RotateLeft  => rover.rotateLeft
-        case Command.RotateRight => rover.rotateRight
+        case Command.Forward     => state.forward
+        case Command.Backwards   => state.backward
+        case Command.RotateLeft  => state.rotateLeft
+        case Command.RotateRight => state.rotateRight
       }
     }
 }
