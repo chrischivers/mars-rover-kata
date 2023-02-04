@@ -1,0 +1,12 @@
+.idea
+project/target
+target
+*.bk
+.DS_Store
+.metals
+.bsp/
+.vscode/
+.java-version
+.bloop
+*.env
+.env
